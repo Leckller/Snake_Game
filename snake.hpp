@@ -1,5 +1,5 @@
 #pragma once
-
+#include <random>
 #include <SFML/Graphics.hpp>
 
 class Snake {
@@ -16,4 +16,5 @@ class Snake {
         void make_map();
         void run_game();
         void collision();
+        void gen_fruit();
 };

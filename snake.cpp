@@ -36,7 +36,25 @@ void Snake::make_map() {
     }
 }
 
+void Snake::gen_fruit() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distribCols(0, cols - 1);
+    std::uniform_int_distribution<> distribLines(0, lines - 1);
+    fruit.x = distribCols(gen);
+    fruit.y = distribLines(gen);
+
+    sp3.setPosition(fruit.x * size, fruit.y * size);
+}
+
 void Snake::collision() {
+    // loop p acompanhar a cabeça ( aqui eu atualizo a posição de cada parte do corpo para a posição da parte à frente)
+    for (int i = num; i > 0; i--)
+    {
+        snake_body[i].x = snake_body[i-1].x;
+        snake_body[i].y = snake_body[i-1].y;
+    }
+
     // aqui a gente só mexe a cabeça (lá ele)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         direction = 0;
@@ -69,9 +87,31 @@ void Snake::collision() {
             break;
     }
 
+    // aq valida se colidiu com a fruta
+    if(fruit.x == snake_body[0].x && fruit.y == snake_body[0].y) {
+        gen_fruit();
+        num++;
+    }
+
+    if(snake_body[0].x > cols) {
+        snake_body[0].x = 0;
+    }
+    if(snake_body[0].x < 0) {
+        snake_body[0].x = cols;
+    }
+
+    if(snake_body[0].y > lines) {
+        snake_body[0].y = 0;
+    }
+
+    if(snake_body[0].y < 0) {
+        snake_body[0].y = lines;
+    }
+
 }
 
 void Snake::run_game() {
+    gen_fruit();
     while (window.isOpen())
     {
 
@@ -94,6 +134,7 @@ void Snake::run_game() {
 
         window.clear();
         make_map();
+        window.draw(sp3);
 
         for (int i{}; i < num; i++)
         {
