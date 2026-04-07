@@ -1,6 +1,6 @@
 #include "snake.hpp"
 
-sf::Vector2i snake[100];
+sf::Vector2i snake_body[100];
 sf::Vector2i fruit;
 
 Snake::Snake(){
@@ -25,9 +25,60 @@ Snake::Snake(){
     sp3.setTexture(t3);
 }
 
+void Snake::make_map() {
+    for (int c{}; c < cols; c++)
+    {
+        for (int l{}; l < lines; l++)
+        {
+            sp1.setPosition(c * size, l * size);
+            window.draw(sp1);
+        }
+    }
+}
+
+void Snake::collision() {
+    // aqui a gente só mexe a cabeça (lá ele)
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        direction = 0;
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        direction = 1;      
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        direction = 2;      
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        direction = 3;      
+    }
+
+    switch (direction) {
+        case 0:
+            snake_body[0].x +=1;
+            break;
+        case 1:
+            snake_body[0].x -=1;
+            break;
+        case 2:
+            snake_body[0].y -=1;
+            break;
+        case 3:
+            snake_body[0].y +=1;
+            break;
+    }
+
+}
+
 void Snake::run_game() {
     while (window.isOpen())
     {
+
+        float time = clock.getElapsedTime().asSeconds();
+        clock.restart();
+        timer += time;
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -36,15 +87,18 @@ void Snake::run_game() {
             }
         }
 
-        window.clear();
+        if(timer > delay) {
+            timer = 0;
+            collision();
+        }
 
-        for (int c{}; c < cols; c++)
+        window.clear();
+        make_map();
+
+        for (int i{}; i < num; i++)
         {
-            for (int l{}; l < lines; l++)
-            {
-                sp1.setPosition(c * size, l * size);
-                window.draw(sp1);
-            }
+            sp2.setPosition(size * snake_body[i].x, size * snake_body[i].y);
+            window.draw(sp2);
         }
 
         window.display();

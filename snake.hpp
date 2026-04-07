@@ -13,6 +13,7 @@ class Snake {
 
         float timer, delay;
 
+        void make_map();
         void run_game();
-        void collision() {};
+        void collision();
 };
