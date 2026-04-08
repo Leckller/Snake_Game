@@ -16,9 +16,9 @@ Snake::Snake(){
 
     window.create(sf::VideoMode(width, height), "Snake Game", sf::Style::Titlebar | sf::Style::Close);
 
-    t1.loadFromFile("./bg.png");
-    t2.loadFromFile("./snake.png");
-    t3.loadFromFile("./fruta.png");
+    t1.loadFromFile("./src/assets/sprites/bg.png");
+    t2.loadFromFile("./src/assets/sprites/snake.png");
+    t3.loadFromFile("./src/assets/sprites/fruta.png");
 
     sp1.setTexture(t1);
     sp2.setTexture(t2);
