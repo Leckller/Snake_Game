@@ -61,19 +61,19 @@ void Snake::collision() {
     }
 
     // aqui a gente só mexe a cabeça (lá ele)
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && direction != 1) {
         direction = 0;
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && direction != 0) {
         direction = 1;      
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && direction != 3) {
         direction = 2;      
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && direction != 2) {
         direction = 3;      
     }
 
@@ -95,7 +95,7 @@ void Snake::collision() {
     // aq valida se colidiu com a fruta
     if(fruit.x == snake_body[0].x && fruit.y == snake_body[0].y) {
         gen_fruit();
-        num++;
+        snake_body.push_back(snake_body.back());
     }
 
     // colisão nas extremidades
