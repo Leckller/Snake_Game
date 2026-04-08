@@ -22,9 +22,12 @@ class Snake {
             PLAYING
         };
 
-        game_status status = {game_status::MENU};
+        game_status status = {game_status::PLAYING};
 
         float timer, delay;
+
+        sf::RectangleShape start_btn;
+        sf::Text start_text;
 
         void make_map();
         void run_game();

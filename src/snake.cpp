@@ -26,6 +26,21 @@ Snake::Snake()
     sp1.setTexture(t1);
     sp2.setTexture(t2);
     sp3.setTexture(t3);
+
+    start_btn.setFillColor(sf::Color::White);
+    start_btn.setSize(sf::Vector2f(200.f, 100.f));
+    start_btn.setPosition((window.getSize().x / 2) - (start_btn.getSize().x / 2), (window.getSize().y / 2) - (start_btn.getSize().y / 2));
+
+    start_text.setFont(f1);
+    start_text.setString("Iniciar");
+    start_text.setFillColor(sf::Color::Black);
+    sf::FloatRect text_bounds = start_text.getLocalBounds();
+    start_text.setOrigin(
+        text_bounds.left + (text_bounds.width / 2),
+        text_bounds.top + (text_bounds.height / 2)
+    );
+    start_text.setPosition(start_btn.getPosition().x + (start_btn.getSize().x / 2), start_btn.getPosition().y + (start_btn.getSize().y / 2));
+
 }
 
 void Snake::make_map()
@@ -150,11 +165,6 @@ void Snake::paused() {
 
 void Snake::menu()
 {
-    sf::RectangleShape start_btn;
-    start_btn.setFillColor(sf::Color::White);
-    start_btn.setSize(sf::Vector2f(200.f, 100.f));
-    start_btn.setPosition((window.getSize().x / 2) - (start_btn.getSize().x / 2), (window.getSize().y / 2) - (start_btn.getSize().y / 2));
-    window.draw(start_btn);
 }
 
 void Snake::run_game()
