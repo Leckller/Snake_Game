@@ -93,14 +93,15 @@ void Snake::collision() {
         num++;
     }
 
-    if(snake_body[0].x > cols) {
+    // colisão nas extremidades
+    if(snake_body[0].x > cols - 1) {
         snake_body[0].x = 0;
     }
     if(snake_body[0].x < 0) {
         snake_body[0].x = cols;
     }
 
-    if(snake_body[0].y > lines) {
+    if(snake_body[0].y > lines - 1) {
         snake_body[0].y = 0;
     }
 
