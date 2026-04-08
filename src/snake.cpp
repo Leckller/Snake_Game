@@ -1,6 +1,6 @@
 #include "snake.hpp"
 
-sf::Vector2i snake_body[100];
+std::vector<sf::Vector2i> snake_body;
 sf::Vector2i fruit;
 
 Snake::Snake(){
@@ -10,7 +10,6 @@ Snake::Snake(){
     width = size * cols;
     height = size * lines;
     direction = 0;
-    num = 4;
     timer = 0.f;
     delay = 0.1f;
 
@@ -44,12 +43,18 @@ void Snake::gen_fruit() {
     fruit.x = distribCols(gen);
     fruit.y = distribLines(gen);
 
+    for (int i =  - 1; i >= 0; i--)
+    {
+        /* code */
+    }
+    
+
     sp3.setPosition(fruit.x * size, fruit.y * size);
 }
 
 void Snake::collision() {
     // loop p acompanhar a cabeça ( aqui eu atualizo a posição de cada parte do corpo para a posição da parte à frente)
-    for (int i = num; i > 0; i--)
+    for (int i = snake_body.size() - 1; i > 0; i--)
     {
         snake_body[i].x = snake_body[i-1].x;
         snake_body[i].y = snake_body[i-1].y;
@@ -112,7 +117,12 @@ void Snake::collision() {
 }
 
 void Snake::run_game() {
+    snake_body.push_back({5, 5});
+    snake_body.push_back({4, 5});
+    snake_body.push_back({3, 5});
+    snake_body.push_back({2, 5});
     gen_fruit();
+    
     while (window.isOpen())
     {
 
@@ -137,11 +147,18 @@ void Snake::run_game() {
         make_map();
         window.draw(sp3);
 
-        for (int i{}; i < num; i++)
+        for (size_t i{}; i < snake_body.size(); i++)
         {
             sp2.setPosition(size * snake_body[i].x, size * snake_body[i].y);
             window.draw(sp2);
         }
+
+        // da p escrever assim tbm
+        // for (const auto& part : snake_body)
+        // {
+        //     sp2.setPosition(size * part.x, size * part.y);
+        //     window.draw(sp2);
+        // }
 
         window.display();
 

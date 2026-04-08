@@ -7,3 +7,4 @@ TODO
 - Adição de habilidade de slow
 - Impedir a geração de frutas em um espaço em que a cobra já esteja
 - Adicionar colisão no body da cobra
+- Adicionar um timer de 3 segundos antes de iniciar o jogo
